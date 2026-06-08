@@ -27,7 +27,8 @@ class ProductController extends Controller
 
         $newProduct = Product::create($data); // to save in db
 
-        return redirect(route('product.index'));
+        return redirect()->route('product.index')
+    ->with('success', 'Product created successfully');
     }
 
     public function edit(Product $product){
