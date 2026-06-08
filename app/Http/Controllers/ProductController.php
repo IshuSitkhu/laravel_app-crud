@@ -8,7 +8,9 @@ use App\Models\Product; //inorder to store data in db
 class ProductController extends Controller
 {
     public function index(){
-        return view('products.index');
+    $products = Product::all();    // inorder to show data in index page
+    return view('products.index' , ['products' => $products]);
+        
     }
 
     public function create(){
