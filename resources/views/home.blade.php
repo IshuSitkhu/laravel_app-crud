@@ -16,36 +16,83 @@
 
 <body>
 
-    <!-- HEADER -->
     @include('layouts.navigation')
 
-    <!-- MAIN CONTENT -->
   <div class="w-full lg:max-w-4xl max-w-[335px] mx-auto flex flex-col gap-6 text-[#1b1b18] p-6 lg:p-8">
 
-        <!-- PRODUCT LIST SECTION -->
         <div class="p-6 border rounded-lg bg-white shadow">
-            <h2 class="text-lg font-semibold mb-4">Product List</h2>
+            <h2 class="text-lg font-semibold mb-6">Product List</h2>
 
-            <div class="space-y-3">
-                <!-- Example product item -->
-                <div class="p-3 border rounded flex justify-between">
-                    <span>Product 1</span>
-                    <span>$10</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+
+                <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white">
+
+                    <div class="w-full aspect-square overflow-hidden">
+                        <img src="{{ asset('images/products/product2.jpg') }}"
+                            class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="p-4 space-y-2">
+
+                        <h3 class="font-semibold text-lg">Product 1</h3>
+
+                        <p class="text-sm text-gray-500">
+                            Seller: John Doe
+                        </p>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">Rs.1,50,000</span>
+
+                            <span class="text-xs px-2 py-1 rounded bg-green-100 text-green-700">
+                                In Stock
+                            </span>
+                        </div>
+
+                        <div class="flex gap-2 pt-2">
+                            <button class="flex-1 bg-blue-600 text-white text-sm py-2 rounded hover:bg-blue-700">
+                                Add to Cart
+                            </button>
+
+                            <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
+                                Buy Now
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="p-3 border rounded flex justify-between">
-                    <span>Product 2</span>
-                    <span>$20</span>
+                <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white">
+                    <div class="w-full aspect-square overflow-hidden">
+                        <img src="{{ asset('images/products/product1.jpg') }}"
+                            class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="p-4 space-y-2">
+                        <h3 class="font-semibold text-lg">Product 2</h3>
+                        <p class="text-sm text-gray-500">Seller: Jane Smith</p>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">Rs.3,00,000</span>
+                            <span class="text-xs px-2 py-1 rounded bg-yellow-100 text-yellow-700">
+                                Low Stock
+                            </span>
+                        </div>
+
+                        <div class="flex gap-2 pt-2">
+                            <button class="flex-1 bg-blue-600 text-white text-sm py-2 rounded hover:bg-blue-700">
+                                Add to Cart
+                            </button>
+
+                            <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="p-3 border rounded flex justify-between">
-                    <span>Product 3</span>
-                    <span>$30</span>
-                </div>
             </div>
         </div>
 
-        <!-- CUSTOMER SECTION -->
         <div class="p-6 border rounded-lg bg-white shadow">
             <h2 class="text-lg font-semibold mb-4">Customers</h2>
 
