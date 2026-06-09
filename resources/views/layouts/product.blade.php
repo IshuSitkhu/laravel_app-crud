@@ -44,7 +44,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar bg-white border-b border-gray-100 shadow-sm">
     <div class="container">
 
         <!-- LEFT: Brand -->
@@ -56,7 +56,7 @@
         <div class="d-flex align-items-center gap-3">
 
             <!-- Logged-in user -->
-            <span class="text-white">
+            <span >
                 {{ Auth::user()->name }}
             </span>
 

@@ -14,63 +14,13 @@
     @endif
 </head>
 
-<body class="bg-[#FDFDFC] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+<body>
 
     <!-- HEADER -->
-    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
-        @if (Route::has('login'))
-            <nav class="flex items-center justify-end gap-4">
-
-                @auth
-                    <h1>Welcome customer!</h1>
-                    <x-dropdown align="right" width="48">
-                        
-                        <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border rounded-md text-sm text-gray-600 bg-white hover:text-gray-800">
-                                <div>{{ Auth::user()->name }}</div>
-
-                                <svg class="ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content">
-
-                            <!-- Profile -->
-                            <x-dropdown-link :href="route('profile.guest')">
-                                Profile
-                            </x-dropdown-link>
-
-                            <!-- Logout -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                                    Log Out
-                                </x-dropdown-link>
-                            </form>
-
-                        </x-slot>
-                    </x-dropdown>
-
-                @else
-                    <a href="{{ route('login') }}" class="px-5 py-1.5 border rounded-sm">Log in</a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="px-5 py-1.5 border rounded-sm">Register</a>
-                    @endif
-                @endauth
-
-            </nav>
-        @endif
-    </header>
+    @include('layouts.navigation')
 
     <!-- MAIN CONTENT -->
-    <div class="w-full lg:max-w-4xl max-w-[335px] flex flex-col gap-6">
+  <div class="w-full lg:max-w-4xl max-w-[335px] mx-auto flex flex-col gap-6 text-[#1b1b18] p-6 lg:p-8">
 
         <!-- PRODUCT LIST SECTION -->
         <div class="p-6 border rounded-lg bg-white shadow">
