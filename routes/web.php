@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home'); // public homepage
 });
 
 Route::get('/dashboard', function () {
@@ -16,6 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+Route::get('/profile-guest', function (Request $request) {
+    return view('profile.guest', [
+        'user' => $request->user(),
+    ]);
+})->middleware('auth')->name('profile.guest');
 
 });
 
@@ -31,11 +40,13 @@ Route::middleware(['auth', 'role:seller'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'role:customer'])->group(function () {
-    Route::get('/customer/dashboard', function () {
-        return view('customer.dashboard');
-    });
-});
+// Route::middleware(['auth', 'role:customer'])->group(function () {
+//     Route::get('/customer/dashboard', function () {
+//         return view('customer.dashboard');
+//     });
+// });
+
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/product.php';

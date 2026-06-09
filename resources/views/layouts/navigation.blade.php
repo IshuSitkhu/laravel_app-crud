@@ -22,10 +22,10 @@
                         @endif
 
                         @if(auth()->user()->role === 'admin')
-                            <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.*')">
-                                Products
-                            </x-nav-link>
-                        @endif
+                        <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.*')">
+                            Products
+                        </x-nav-link>
+                    @endif
 
                         @if(auth()->user()->role === 'seller')
                             <x-nav-link :href="url('/seller/dashboard')" :active="request()->is('seller*')">
@@ -39,10 +39,10 @@
                             </x-nav-link>
                         @endif
 
-                        
-                        <!-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <!-- Optional: keep default dashboard hidden or remove -->
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             Dashboard
-                        </x-nav-link> -->
+                        </x-nav-link>
 
                     @endauth
 
