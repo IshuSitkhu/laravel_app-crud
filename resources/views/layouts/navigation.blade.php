@@ -12,9 +12,40 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+
+                    @auth
+
+                        @if(auth()->user()->role === 'admin')
+                            <x-nav-link :href="url('/admin/dashboard')" :active="request()->is('admin*')">
+                                Admin Dashboard
+                            </x-nav-link>
+                        @endif
+
+                        @if(auth()->user()->role === 'admin')
+                            <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.*')">
+                                Products
+                            </x-nav-link>
+                        @endif
+
+                        @if(auth()->user()->role === 'seller')
+                            <x-nav-link :href="url('/seller/dashboard')" :active="request()->is('seller*')">
+                                Seller Dashboard
+                            </x-nav-link>
+                        @endif
+
+                        @if(auth()->user()->role === 'customer')
+                            <x-nav-link :href="url('/customer/dashboard')" :active="request()->is('customer*')">
+                                Customer Dashboard
+                            </x-nav-link>
+                        @endif
+
+                        
+                        <!-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            Dashboard
+                        </x-nav-link> -->
+
+                    @endauth
+
                 </div>
             </div>
 
