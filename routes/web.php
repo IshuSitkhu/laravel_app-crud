@@ -3,9 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 
 Route::get('/', function () {
-    return view('home'); // public homepage
+    $products = Product::with('user')->get();
+    return view('home', compact('products'));
+});
+
+// Route::get('/', function () {
+//     return view('home'); // public homepage
+// });
+
+Route::get('/', function () {
+    $products = Product::with('user')->get();
+    return view('home', compact('products'));
 });
 
 Route::get('/dashboard', function () {

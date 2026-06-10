@@ -55,6 +55,10 @@
                             <x-nav-link :href="url('/seller/dashboard')" :active="request()->is('seller*')">
                                 Seller Dashboard
                             </x-nav-link>
+
+                            <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.*')">
+                                Products
+                            </x-nav-link>
                         @endif
 
                         <!-- CUSTOMER (optional future use) -->

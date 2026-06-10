@@ -32,6 +32,12 @@ class ProductController extends Controller
         // dd(auth()->user(), auth()->id());
 
         $data['user_id'] = auth()->id(); //GET LOGGEDIN USERID SO THAT USERID=1 HUNXA
+
+        $data['status'] = ($request->qty > 0) ? 'in_stock' : 'out_of_stock';
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('products', 'public');
+        }
         
        Product::create($data); // INSERT DATA AND save in db
 
