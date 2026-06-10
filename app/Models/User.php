@@ -49,7 +49,14 @@ class User extends Authenticatable
         ];
     }
 
+    //ONE SELLER HAS MANY PRODUCTS
     public function products(){
         return $this->hasMany(Product::class);
+    }
+
+    // ONE user HAS ONE CART
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
     }
 }

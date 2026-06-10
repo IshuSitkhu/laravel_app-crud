@@ -123,14 +123,19 @@
                                 </span>
                             </div>
                             <div class="flex gap-2 pt-2">
-                            <button class="flex-1 bg-blue-600 text-white text-sm py-2 rounded hover:bg-blue-700">
-                                Add to Cart
-                            </button>
+                                <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                                    @csrf
 
-                            <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
-                                Buy Now
-                            </button>
-                        </div>
+                                    <button type="submit"
+                                        class="flex-1 bg-blue-600 text-white text-sm py-2 rounded hover:bg-blue-700">
+                                        Add to Cart
+                                    </button>
+                                </form>
+
+                                <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
+                                    Buy Now
+                                </button>
+                            </div>
 
                         </div>
                     </div>
