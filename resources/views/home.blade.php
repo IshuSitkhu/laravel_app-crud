@@ -90,6 +90,52 @@
                     </div>
                 </div>
 
+                @foreach($products as $product)
+                    <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white">
+
+                        <div class="w-full aspect-square overflow-hidden">
+
+                            <img src="{{ asset('storage/' . $product->image) }}"
+                                class="w-full h-full object-cover">
+
+                        </div>
+
+                        <div class="p-4 space-y-2">
+
+                            <h3 class="font-semibold text-lg">
+                                {{ $product->name }}
+                            </h3>
+
+                            <p class="text-sm text-gray-500">
+                                Seller: {{ $product->user->name ?? 'Unknown' }}
+                            </p>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-green-600 font-bold">
+                                    Rs.{{ $product->price }}
+                                </span>
+
+                                <span class="text-xs px-2 py-1 rounded
+                                    {{ $product->status == 'in_stock' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+
+                                    {{ $product->status == 'in_stock' ? 'In Stock' : 'Out of Stock' }}
+
+                                </span>
+                            </div>
+                            <div class="flex gap-2 pt-2">
+                            <button class="flex-1 bg-blue-600 text-white text-sm py-2 rounded hover:bg-blue-700">
+                                Add to Cart
+                            </button>
+
+                            <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
+                                Buy Now
+                            </button>
+                        </div>
+
+                        </div>
+                    </div>
+                @endforeach
+
             </div>
         </div>
 

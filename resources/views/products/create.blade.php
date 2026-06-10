@@ -6,7 +6,7 @@
 
     <h2 class="page-title">Create Product</h2>
 
-    <form method="POST" action="{{ route('product.store') }}">
+    <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -56,6 +56,18 @@
                       placeholder="Enter description">{{ old('description') }}</textarea>
 
             @error('description')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Product Image</label>
+
+            <input type="file"
+                name="image"
+                class="form-control @error('image') is-invalid @enderror">
+
+            @error('image')
                 <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>

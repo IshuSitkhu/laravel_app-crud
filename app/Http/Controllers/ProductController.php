@@ -23,7 +23,8 @@ class ProductController extends Controller
             'name'=> 'required',
             'qty' => 'required|numeric',
             'price'=>'required|decimal:0,2',
-            'description' => 'nullable'
+            'description' => 'required',
+            'image' => 'required|image',
         ]);
 
         if (!auth()->check()) {
@@ -54,7 +55,7 @@ class ProductController extends Controller
             'name'=> 'required',
             'qty' => 'required|numeric',
             'price'=>'required|decimal:0,2',
-            'description' => 'nullable'
+            'description' => 'required'
         ]);
 
         $product->update($data);
