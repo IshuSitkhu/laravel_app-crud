@@ -21,6 +21,7 @@
                 <th>Qty</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th>Seller</th>
                 <th style="width: 150px;">Actions</th>
             </tr>
         </thead>
@@ -32,6 +33,9 @@
                     <td>{{ $product->qty }}</td>
                     <td>Rs. {{ $product->price }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>
+                        {{ $product->user->name ?? 'No Seller' }}
+                    </td>
 
                     <td>
                         <a href="{{ route('product.edit', $product) }}" class="btn btn-warning btn-sm">
