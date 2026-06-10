@@ -6,7 +6,7 @@
 
     <h2 class="page-title">Edit Product</h2>
 
-    <form method="POST" action="{{ route('product.update', $product) }}">
+    <form method="POST" action="{{ route('product.update', $product) }}"  enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -56,6 +56,25 @@
                 <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="mb-3">
+    <label class="form-label">Product Image</label>
+    @if($product->image)
+    <div class="mb-2">
+        <img src="{{ asset('storage/' . $product->image) }}"
+             width="120"
+             class="rounded">
+    </div>
+@endif
+
+    <input type="file"
+           name="image"
+           class="form-control @error('image') is-invalid @enderror">
+
+    @error('image')
+        <div class="text-danger small">{{ $message }}</div>
+    @enderror
+</div>
 
         <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary">

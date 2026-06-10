@@ -55,8 +55,15 @@ class ProductController extends Controller
             'name'=> 'required',
             'qty' => 'required|numeric',
             'price'=>'required|decimal:0,2',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'nullable|image',
         ]);
+
+        $data['status'] = ($request->qty > 0) ? 'in_stock' : 'out_of_stock';
+
+    if ($request->hasFile('image')) {
+        $data['image'] = $request->file('image')->store('products', 'public');
+    }
 
         $product->update($data);
 
