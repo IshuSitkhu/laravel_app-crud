@@ -25,7 +25,14 @@ class ProductController extends Controller
             'description' => 'nullable'
         ]);
 
-        $newProduct = Product::create($data); // to save in db
+        if (!auth()->check()) {
+            abort(403, 'You must be logged in');
+        }
+        // dd(auth()->user(), auth()->id());
+
+        $data['user_id'] = auth()->id(); //GET LOGGEDIN USERID SO THAT USERID=1 HUNXA
+        
+       Product::create($data); // INSERT DATA AND save in db
 
         return redirect()->route('product.index')
     ->with('success', 'Product created successfully');
