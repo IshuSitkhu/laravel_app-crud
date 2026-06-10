@@ -9,7 +9,14 @@ class ProductController extends Controller
 {
     public function index(){
     // $products = Product::all();    // inorder to show data in index page
-     $products = Product::with('user')->get();
+    //  $products = Product::with('user')->get();
+    if (auth()->user()->role === 'admin') {
+        $products = Product::with('user')->get(); // all products
+    } else {
+        $products = Product::with('user')
+            ->where('user_id', auth()->id())
+            ->get(); // only seller products
+    }
     return view('products.index' , ['products' => $products]);
         
     }
