@@ -35,9 +35,7 @@
 
                     @auth
                         <!-- Home -->
-                        <!-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            Home
-                        </x-nav-link> -->
+                        
 
                         <!-- ADMIN -->
                         @if(auth()->user()->role === 'admin')
@@ -67,6 +65,10 @@
                                 Shop
                             </x-nav-link>
                         @endif
+
+                        <x-nav-link :href="route('cart.index')" >
+                            Cart
+                        </x-nav-link>
 
                     @endauth
 

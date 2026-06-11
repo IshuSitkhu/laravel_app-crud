@@ -22,6 +22,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+    Route::post('/cart/increase/{item}', [CartController::class, 'increase'])->name('cart.increase');
+
+    Route::post('/cart/decrease/{item}', [CartController::class, 'decrease'])->name('cart.decrease');
+
 });
 
 

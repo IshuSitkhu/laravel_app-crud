@@ -36,7 +36,39 @@ class CartController extends Controller
                 'qty' => 1
             ]);
         }
+        return redirect()->back()->with('success', 'Product added to cart!');
 
-        return redirect()->back()->with('success', 'Added to cart!');
+    }
+
+    public function index()
+    {
+        $user = auth()->user();
+
+        // get cart with items + product details
+        $cart = Cart::with('items.product')
+            ->where('user_id', $user->id)
+            ->first();
+
+        return view('cart.index', compact('cart'));
+    }
+
+    public function increase(CartItem $item)
+    {
+        $item->qty += 1;
+        $item->save();
+
+        return redirect()->back();
+    }
+
+   public function decrease(CartItem $item)
+    {
+        if ($item->qty > 1) {
+            $item->qty -= 1;
+            $item->save();
+        } else {
+            $item->delete(); // remove item if qty = 0
+        }
+
+        return redirect()->back();
     }
 }
