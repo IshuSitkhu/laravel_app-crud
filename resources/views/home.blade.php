@@ -124,24 +124,28 @@
 
                                 </span>
                             </div>
-                            <div class="flex gap-2 pt-2">
-                                <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                            <div class="flex gap-3 pt-3">
+
+                                <form method="POST" action="{{ route('cart.add', $product->id) }}" class="flex-1">
                                     @csrf
 
                                     <button type="submit"
-                                        class="flex-1 bg-blue-600 text-white text-sm py-2 rounded hover:bg-blue-700">
+                                        class="w-full bg-blue-600 text-white text-sm font-medium py-2.5 px-4 rounded-lg
+                                            hover:bg-blue-700 transition duration-200">
                                         Add to Cart
                                     </button>
                                 </form>
 
-                                <form method="POST" action="{{route('cart.buynow')}}">
+                                <form method="POST" action="{{ route('cart.buynow', $product->id) }}" class="flex-1">
                                     @csrf
 
-                                    <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
+                                    <button type="submit"
+                                        class="w-full bg-black text-white text-sm font-medium py-2.5 px-4 rounded-lg
+                                            hover:bg-gray-800 transition duration-200">
                                         Buy Now
                                     </button>
                                 </form>
-                                
+
                             </div>
 
                         </div>

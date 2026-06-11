@@ -114,4 +114,29 @@ class CartController extends Controller
         return redirect()->route('cart.index')
             ->with('success', 'Order placed successfully!');
     }
+
+
+
+    public function buyNow(Product $product)
+    {
+        $user = auth()->user();
+
+        // 1. Create order
+        $order = Order::create([
+            'user_id' => $user->id,
+            'total_amount' => $product->price,
+            'status' => 'pending'
+        ]);
+
+        // 2. Create single order item
+        OrderItem::create([
+            'order_id' => $order->id,
+            'product_id' => $product->id,
+            'qty' => 1,
+            'price' => $product->price
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Order placed successfully (Buy Now)!');
+    }
 }

@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [CartController::class, 'checkout'])
         ->name('cart.checkout');
 
+    Route::post('/buynow/{product}', [CartController::class, 'buynow'])
+        ->name('cart.buynow');
+
 
 
 Route::get('/profile-guest', function (Request $request) {
