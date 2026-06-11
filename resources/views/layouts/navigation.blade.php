@@ -6,10 +6,10 @@
             <!-- LEFT SIDE -->
             <div class="flex items-center space-x-6">
 
-                <!-- Logo -->
+                <!-- Logo
                 <a href="{{ route('dashboard') }}" class="flex items-center">
                     <x-application-logo class="h-9 w-auto text-gray-800" />
-                </a>
+                </a> -->
 
                 <!-- NAV LINKS -->
                 <div class="hidden sm:flex space-x-6">
@@ -39,7 +39,7 @@
 
                         <!-- ADMIN -->
                         @if(auth()->user()->role === 'admin')
-                            <x-nav-link :href="url('/admin/dashboard')" :active="request()->is('admin*')">
+                            <x-nav-link :href="url('/')" :active="request()->is('admin*')">
                                 Admin Dashboard
                             </x-nav-link>
 
@@ -50,7 +50,7 @@
 
                         <!-- SELLER -->
                         @if(auth()->user()->role === 'seller')
-                            <x-nav-link :href="url('/seller/dashboard')" :active="request()->is('seller*')">
+                            <x-nav-link :href="url('/')" :active="request()->is('seller*')">
                                 Seller Dashboard
                             </x-nav-link>
 
