@@ -30,13 +30,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    
-
-Route::post('/cart/add/{product}', [CartController::class, 'add'])
-        ->name('cart.add');
+    Route::post('/cart/add/{product}', [CartController::class, 'add'])
+            ->name('cart.add');
 
     Route::get('/cart', [CartController::class, 'index'])
         ->name('cart.index');
+
+    Route::post('/checkout', [CartController::class, 'checkout'])
+        ->name('cart.checkout');
 
 
 

@@ -66,9 +66,14 @@
 
                         
                     </div>
-                    <button class="flex-1 bg-blue-600 w-full text-white text-sm py-2 rounded hover:bg-blue-700">
-                                Proceed to Checkout
-                    </button>
+                    <form method="POST" action="{{route('cart.checkout')}}">
+                        @csrf
+
+                        <button class="flex-1 bg-blue-600 w-full text-white text-sm py-2 rounded hover:bg-blue-700">
+                                    Proceed to Checkout
+                        </button>
+                    </form>
+                    
 
                 @else
                     <p class="text-gray-500">

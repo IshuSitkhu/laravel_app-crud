@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -70,5 +72,46 @@ class CartController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function checkout()
+    {
+        $user = auth()->user();
+
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        if (!$cart || $cart->items->count() == 0) {
+            return redirect()->back()->with('error', 'Cart is empty');
+        }
+
+        // 1. Calculate total
+        $total = 0;
+
+        foreach ($cart->items as $item) {
+            $total += $item->qty * $item->product->price;
+        }
+
+        // 2. Create Order
+        $order = Order::create([
+            'user_id' => $user->id,
+            'total_amount' => $total,
+            'status' => 'pending'
+        ]);
+
+        // 3. Move cart items → order items
+        foreach ($cart->items as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'qty' => $item->qty,
+                'price' => $item->product->price
+            ]);
+        }
+
+        // 4. Clear cart
+        $cart->items()->delete();
+
+        return redirect()->route('cart.index')
+            ->with('success', 'Order placed successfully!');
     }
 }
