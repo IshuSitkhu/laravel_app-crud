@@ -6,10 +6,10 @@
             <!-- LEFT SIDE -->
             <div class="flex items-center space-x-6">
 
-                <!-- Logo
-                <a href="{{ route('dashboard') }}" class="flex items-center">
+                <!-- Logo -->
+                
                     <x-application-logo class="h-9 w-auto text-gray-800" />
-                </a> -->
+                
 
                 <!-- NAV LINKS -->
                 <div class="hidden sm:flex space-x-6">
@@ -29,9 +29,9 @@
 
 
 
-                <h2 class="text-lg font-semibold">
+                <!-- <h2 class="text-lg font-semibold">
                     Welcome {{ $roleLabel }}
-                </h2>
+                </h2> -->
 
                     @auth
                         <!-- Home -->
@@ -61,6 +61,9 @@
 
                         <!-- CUSTOMER (optional future use) -->
                         @if(auth()->user()->role === 'customer')
+                            <x-nav-link :href="url('/')" :active="request()->is('customer*')">
+                                    Customer Dashboard
+                            </x-nav-link>
                             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                 Shop
                             </x-nav-link>

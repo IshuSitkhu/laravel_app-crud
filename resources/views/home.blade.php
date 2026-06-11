@@ -134,7 +134,7 @@
                                     </button>
                                 </form>
 
-                                <form method="POST" action="{{route('cart.checkout')}}">
+                                <form method="POST" action="{{route('cart.buynow')}}">
                                     @csrf
 
                                     <button class="flex-1 bg-black text-white text-sm py-2 rounded hover:bg-gray-800">
