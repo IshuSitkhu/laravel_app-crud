@@ -16,6 +16,11 @@ class CartController extends Controller
         //get user
         $user = auth()->user();
 
+        //CHECK STOCK
+         if ($product->qty <= 0) {
+            return redirect()->back()->with('error', 'Product out of stock');
+        }
+
         //  if cart exists (use it)  if not(create new cart)
         $cart = Cart::firstOrCreate([
             'user_id' => $user->id
@@ -25,6 +30,13 @@ class CartController extends Controller
         $item = CartItem::where('cart_id', $cart->id)
             ->where('product_id', $product->id)
             ->first();
+
+            //PREVENT EXCEEDING STOCK
+        $cartQty = $item ? $item->qty : 0;
+
+        if ($cartQty + 1 > $product->qty) {
+            return redirect()->back()->with('error', 'Not enough stock available');
+        }
 
         if ($item) {
             // increase quantity
@@ -56,10 +68,16 @@ class CartController extends Controller
 
     public function increase(CartItem $item)
     {
+        $product = $item->product;
+
+        if ($item->qty + 1 > $product->qty) {
+            return back()->with('error', 'Not enough stock available');
+        }
+
         $item->qty += 1;
         $item->save();
 
-        return redirect()->back();
+         return back()->with('success', 'Quantity updated');
     }
 
    public function decrease(CartItem $item)
@@ -75,51 +93,67 @@ class CartController extends Controller
     }
 
     public function checkout()
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-        $cart = Cart::where('user_id', $user->id)->first();
+    $cart = Cart::where('user_id', $user->id)->first();
 
-        if (!$cart || $cart->items->count() == 0) {
-            return redirect()->back()->with('error', 'Cart is empty');
+    if (!$cart || $cart->items->count() == 0) {
+        return back()->with('error', 'Cart is empty');
+    }
+
+    // 1. Calculate total
+    $total = 0;
+
+    foreach ($cart->items as $item) {
+        $total += $item->qty * $item->product->price;
+    }
+
+    // 2. CREATE ORDER FIRST 
+    $order = Order::create([
+        'user_id' => $user->id,
+        'total_amount' => $total,
+        'status' => 'pending'
+    ]);
+
+    // 3. NOW create order items
+    foreach ($cart->items as $item) {
+
+        $product = $item->product;
+
+        // stock check
+        if ($item->qty > $product->qty) {
+            return back()->with('error', $product->name . ' not enough stock');
         }
 
-        // 1. Calculate total
-        $total = 0;
-
-        foreach ($cart->items as $item) {
-            $total += $item->qty * $item->product->price;
-        }
-
-        // 2. Create Order
-        $order = Order::create([
-            'user_id' => $user->id,
-            'total_amount' => $total,
-            'status' => 'pending'
+        OrderItem::create([
+            'order_id' => $order->id, // ✅ NOW IT EXISTS
+            'product_id' => $item->product_id,
+            'qty' => $item->qty,
+            'price' => $product->price
         ]);
 
-        // 3. Move cart items → order items
-        foreach ($cart->items as $item) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $item->product_id,
-                'qty' => $item->qty,
-                'price' => $item->product->price
-            ]);
-        }
-
-        // 4. Clear cart
-        $cart->items()->delete();
-
-        return redirect()->route('cart.index')
-            ->with('success', 'Order placed successfully!');
+        // reduce stock
+        $product->qty -= $item->qty;
+        $product->save();
     }
+
+    // 4. Clear cart
+    $cart->items()->delete();
+
+    return redirect()->route('cart.index')
+        ->with('success', 'Order placed successfully!');
+}
 
 
 
     public function buyNow(Product $product)
     {
         $user = auth()->user();
+
+        if ($product->qty <= 0) {
+        return back()->with('error', 'Out of stock');
+    }
 
         // 1. Create order
         $order = Order::create([
@@ -135,6 +169,10 @@ class CartController extends Controller
             'qty' => 1,
             'price' => $product->price
         ]);
+
+        //  REDUCE STOCK HERE
+        $product->qty -= 1;
+        $product->save();
 
         return redirect()->back()
             ->with('success', 'Order placed successfully (Buy Now)!');

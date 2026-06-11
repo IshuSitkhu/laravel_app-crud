@@ -168,9 +168,21 @@
 <script>
     Swal.fire({
         icon: 'success',
-        title: 'Success!',
-        text: '{{ session('success') }}',
+        title: 'Success',
+        text: "{{ session('success') }}",
         timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: "{{ session('error') }}",
+        timer: 2500,
         showConfirmButton: false
     });
 </script>
