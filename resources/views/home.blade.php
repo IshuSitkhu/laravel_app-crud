@@ -27,7 +27,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
 
-                <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white">
+                <!-- <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white">
 
                     <div class="w-full aspect-square overflow-hidden">
                         <img src="{{ asset('images/products/product2.jpg') }}"
@@ -90,7 +90,7 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 @foreach($products as $product)
                     <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition bg-white">
@@ -117,12 +117,15 @@
                                     Rs.{{ $product->price }}
                                 </span>
 
-                                <span class="text-xs px-2 py-1 rounded
-                                    {{ $product->status == 'in_stock' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-
-                                    {{ $product->status == 'in_stock' ? 'In Stock' : 'Out of Stock' }}
-
-                                </span>
+                    @if($product->qty > 0)
+                        <span class="text-xs px-2 py-1 rounded bg-green-100 text-green-700">
+                            In Stock ({{ $product->qty }})
+                        </span>
+                    @else
+                        <span class="text-xs px-2 py-1 rounded bg-red-100 text-red-700">
+                            Out of Stock
+                        </span>
+                    @endif
                             </div>
                             <div class="flex gap-3 pt-3">
 
